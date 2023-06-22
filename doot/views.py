@@ -25,22 +25,7 @@ def convert_nlu_into_json(request):
             query_result = convert_nlu_func(user_request, openai_api_key)
         except:
             query_result = "Sorry! conversion failed!"
-        # query_result = """{
-        #     "Utterance": "My house has three rooms. Could you provide a good solution to make it more wonderful?",
-        #     "Intent": "home improvement",
-        #     "Entity": "house",
-        #     "Entity_Adjective": "three rooms",
-        #     "Action": "provide solution",
-        #     "Participant": "you",
-        #     "Buying Intent": "Medium",
-        #     "Sentence Type": "Question",
-        #     "Language": "English",
-        #     "Next Steps": "Ask for more details about the rooms and what the customer is looking for in terms of improvement.",
-        #     "Sentiment": "Positive",
-        #     "Confidence Score": 0.92,
-        #     "Output Response": "Of course, I'd be happy to help. Can you tell me a bit more about the rooms and what you're looking for in terms of improvement? Would you prefer to continue via text or would you like to schedule a call to discuss further?"
-        # }
-        # """
+        
         json_result = json.loads(query_result)
         return Response(json_result)
 
@@ -62,6 +47,5 @@ def similar_search(request):
             docs.append(item)
 
         result = similar_search_func(docs, utterance, openai_api_key)
-        # result = docs[2]        
         response = f"Utterance:{result.page_content}, Metadata:{result.metadata}"
         return Response(response)
